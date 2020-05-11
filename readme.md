@@ -4,13 +4,13 @@ qi backend RESTful api Server
 
 ## resources
 
-### /list/:market
+### /stock/:market/:year
 
 <table>
     <tbody>
         <tr>
         <th>Resource</th>
-        <td>/list/:market</td>
+        <td>/stock/:market/:year</td>
         </tr>
         <tr>
             <th>Method</th>
@@ -19,8 +19,9 @@ qi backend RESTful api Server
         <tr>
             <th>Request</th>
             <td>
-            Path Parameter : </br>
-            market : KOSDAQ, KOSPI </br><br>
+            Path Parameters : </br>
+            market : KOSDAQ, KOSPI </br>
+            year : 2015, 2016, 2017, 2018, 2019 <br><br>
             Parameter Input : </br>
             <table>
                 <thead>
