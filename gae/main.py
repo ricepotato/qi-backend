@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,12 +15,22 @@
 
 # [START gae_python37_app]
 from flask import Flask
+from flask_restful import Api
 from database.dao import MongoDao
+from resources.stock import Stock
 
+dao = MongoDao()
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = Flask(__name__)
+api = Api(app, catch_all_404s=True)
+api.add_resource(
+    Stock,
+    "/stock/<string:market>/<int:year>/",
+    resource_class_kwargs={"dao": dao},
+    endpoint="stock",
+)
 
 
 @app.route("/")
@@ -28,11 +39,11 @@ def hello():
     return "Hello World!"
 
 
-@app.route("/list/")
-def list():
-    dao = MongoDao()
-    kosdaq_list = dao.get_stock_list("KOSDAQ")
-    return str(kosdaq_list)
+# @app.route("/stock/")
+# def list():
+#    dao = MongoDao()
+#    kosdaq_list = dao.get_stock_list("KOSDAQ")
+#    return str(kosdaq_list)
 
 
 if __name__ == "__main__":
