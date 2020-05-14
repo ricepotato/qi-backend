@@ -13,7 +13,7 @@ class MongoDao(object):
         obj = self.coll.find_one({"code": code})
         return obj
 
-    def get_stock_list(self, market, mc_min=None, mc_max=None, limit=20):
+    def get_stock_list(self, market, mc_min=None, mc_max=None):
         query_and = [{"market": market}]
         if mc_min is not None:
             query_and.append({"market_cap": {"$gte": mc_min}})
@@ -21,7 +21,7 @@ class MongoDao(object):
         if mc_max is not None:
             query_and.append({"market_cap": {"$lte": mc_max}})
 
-        rs = self.coll.find({"$and": query_and}, {"_id": False}).limit(limit)
+        rs = self.coll.find({"$and": query_and}, {"_id": False})
         return list(rs)
 
     def set_object(self, code, object):

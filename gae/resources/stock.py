@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify
-from flask_restful import fields, marshal_with, reqparse, Resource
+from flask_restful import reqparse, Resource
+from utils.rank import Rank
 
 
 get_parser = reqparse.RequestParser()
@@ -40,6 +41,39 @@ class Stock(Resource):
         args = get_parser.parse_args()
         print(args)
         res_list = self.dao.get_stock_list(
-            market, mc_min=args.mc_min, mc_max=args.mc_max, limit=args.limit
+            market, mc_min=args.mc_min, mc_max=args.mc_max
         )
-        return jsonify({"data": res_list})
+        res_data = self._rank_process(res_list, year)
+        return jsonify({"data": res_data[: args.limit]})
+
+    def _rank_process(self, res_list, year):
+        rank_list = []
+        for item in res_list:
+            try:
+                for k, v in item["fr"].items():
+                    if str(year) in k:
+                        selected = v
+                        break
+            except KeyError:
+                # if fr is not exists. except item
+                continue
+
+            rank_list.append(
+                {
+                    "category_code": item["category_code"],
+                    "code": item["code"],
+                    "name": item["name"],
+                    "market_cap": item["market_cap"],
+                    "pbr": selected["pbr"],
+                    "per": selected["per"],
+                    "roa": selected["roa"],
+                    "roe": selected["roe"],
+                    "fr": item["fr"],
+                }
+            )
+
+        rank = Rank()
+        rank.add_rank_column("roa", rank.DESC)
+        rank.add_rank_column("per", rank.ASC)
+        res_data = rank.get_rank(rank_list)
+        return res_data
