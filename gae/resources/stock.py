@@ -54,6 +54,9 @@ class Stock(Resource):
                     if str(year) in k:
                         selected = v
                         break
+                else:
+                    # if year not in fr. except item
+                    continue
             except KeyError:
                 # if fr is not exists. except item
                 continue
