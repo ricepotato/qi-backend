@@ -15,6 +15,7 @@
 
 # [START gae_python37_app]
 from flask import Flask
+from flask_cors import CORS
 from flask_restful import Api
 from database.dao import MongoDao
 from resources.stock import Stock
@@ -24,6 +25,7 @@ dao = MongoDao()
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = Flask(__name__)
+CORS(app)
 api = Api(app, catch_all_404s=True)
 api.add_resource(
     Stock,
