@@ -4,13 +4,13 @@ qi backend RESTful api Server
 
 ## resources
 
-### /stock/:market/:year
+### /stocks/:market/:year
 
 <table>
     <tbody>
         <tr>
         <th>Resource</th>
-        <td>/stock/:market/:year</td>
+        <td>/stocks/:market/:year</td>
         </tr>
         <tr>
             <th>Method</th>
