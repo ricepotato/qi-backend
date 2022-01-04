@@ -14,11 +14,14 @@
 # limitations under the License.
 
 # [START gae_python37_app]
+import dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from database.dao import MongoDao
 from resources.stock import Stock
+
+dotenv.load_dotenv()
 
 dao = MongoDao()
 
@@ -29,7 +32,7 @@ CORS(app)
 api = Api(app, catch_all_404s=True)
 api.add_resource(
     Stock,
-    "/stock/<string:market>/<int:year>/",
+    "/stocks/<string:market>/<int:year>/",
     resource_class_kwargs={"dao": dao},
     endpoint="stock",
 )

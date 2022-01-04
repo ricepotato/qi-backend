@@ -3,3 +3,4 @@
 *.log
 .venv
 gae/conf/*
+.env

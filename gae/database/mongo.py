@@ -1,3 +1,4 @@
+import os
 import ssl
 import pymongo
 import configparser
@@ -13,12 +14,8 @@ def get_mongo_client(host, user, password):
 
 
 def get_client():
-    config = configparser.ConfigParser()
-    config.read("conf/mongodb.conf")
-    section = host = config["mongodb"]
-    host = section["host"]
-    user = section["user"]
-    password = section["password"]
-
+    host = os.environ.get("MONGODB_HOST")
+    user = os.environ.get("MONGODB_USER")
+    password = os.environ.get("MONGODB_PASSWORD")
     client = get_mongo_client(host, user, password)
     return client
