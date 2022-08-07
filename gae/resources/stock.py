@@ -63,7 +63,6 @@ class Stock(Resource):
 
             rank_list.append(
                 {
-                    "category_code": item["category_code"],
                     "code": item["code"],
                     "name": item["name"],
                     "market_cap": item["market_cap"],

@@ -4,8 +4,22 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+aniso8601 = "==8.0.0"
+click = "==7.1.2"
+dnspython = "==1.16.0"
+flask = "==1.1.2"
+flask-cors = "==3.0.8"
+flask-restful = "==0.3.8"
+itsdangerous = "==1.1.0"
+jinja2 = "==2.11.2"
+markupsafe = "==1.1.1"
+pymongo = "==3.10.1"
+python-dotenv = "==0.19.2"
+pytz = "==2020.1"
+six = "==1.14.0"
+werkzeug = "==1.0.1"
 
 [dev-packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"

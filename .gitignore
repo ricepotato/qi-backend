@@ -4,3 +4,4 @@
 .venv
 gae/conf/*
 .env
+.DS_Store
